@@ -1,9 +1,9 @@
 <template>
-	<el-container>
-		<el-header height="auto">
+	<div>
+		<div class="head">
 			<!-- header -->
-			<img style="width:15%" src="./assets/logo.png">
 			<el-menu :router="true" :default-active="activeIndex" active-text-color="#f37335" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+				<img style="width:75px;float:left;padding-right:100px;padding-left:100px" src="./assets/logo.png">
 				<el-menu-item index="/">Home</el-menu-item>
 				<el-submenu index="blog">
 					<template slot="title">Blog</template>
@@ -18,14 +18,14 @@
 					Contact Us
 				</el-menu-item>
 			</el-menu>
-		</el-header>
+		</div>
 
-		<el-main height="auto">
+		<div class="main">
 			<!-- component -->
-			<router-view/>
-		</el-main>
+			<router-view />
+		</div>
 
-	</el-container>
+	</div>
 </template>
 
 <script>
@@ -41,24 +41,17 @@ export default {
 		handleSelect(key, keyPath) {
 			console.log(this.$route.path);
 		}
-	},
-	watch: {
-		$route(newVal, oldVal) {
-			this.activeIndex = newVal.path;
-		}
 	}
 };
 </script>
 
 <style>
-.el-header {
+.head {
 	text-align: center;
 	font-family: 'Kanit', sans-serif;
 }
-.el-main {
-	padding-right: 3%;
-	padding-left: 3%;
+
+.main {
 	font-family: 'Kanit', sans-serif;
 }
 </style>
-

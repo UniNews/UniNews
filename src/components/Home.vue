@@ -1,27 +1,50 @@
 <template>
 	<div>
-		<el-row :gutter="20">
-			<el-col :span="8" v-for="data in news">
-				<el-card :body-style="{ padding: '0px' }" shadow="hover">
-					<el-carousel :autoplay="false" trigger="click" height="280px">
-						<el-carousel-item v-for="img in data.img">
-							<img :src="`${img}`" class="image">
-						</el-carousel-item>
-					</el-carousel>
-					<div style="padding: 14px;">
-						<span class="header">
-							{{data.title}}
-						</span>
-						<p>{{data.description}}</p>
-						<el-rate disabled show-score text-color="#ff9900" score-template="{value} points" v-model=data.rating></el-rate>
-						<div class="bottom clearfix">
-							<time class="time">{{ data.time }}</time>
-							<el-button type="text" class="button">อ่านเพิ่มเติม</el-button>
+
+		<div class="intro">
+			<p class="quote">
+				Best of the best news application you even seen.
+				<br>
+				<span class="note">- Varit Assavavisidchai -</span>
+				<br>
+				<button class="signupBtn">
+					Sign Up Now!
+				</button>
+			</p>
+			<img src="./../assets/varit.png">
+
+		</div>
+		<hr>
+
+		<div class="hotNews">
+			<p class="text">
+				<i class="el-icon-loading"></i> Hot
+				<span>News</span>
+			</p>
+			<el-row :gutter="20">
+				<el-col :span="8" v-for="data in news">
+					<el-card :body-style="{ padding: '0px' }" shadow="hover">
+						<el-carousel :autoplay="false" trigger="click" height="280px">
+							<el-carousel-item v-for="img in data.img">
+								<img :src="`${img}`" class="image">
+							</el-carousel-item>
+						</el-carousel>
+						<div style="padding: 14px;">
+							<span class="header">
+								{{data.title}}
+							</span>
+							<p style="padding-top:10px">{{data.description}}</p>
+							<el-rate style="padding-top:10px" disabled show-score text-color="#ff9900" score-template="{value} points" v-model=data.rating></el-rate>
+							<div class="bottom clearfix">
+								<time class="time">{{ data.time }}</time>
+								<el-button type="text" class="button">อ่านเพิ่มเติม</el-button>
+							</div>
 						</div>
-					</div>
-				</el-card>
-			</el-col>
-		</el-row>
+					</el-card>
+				</el-col>
+			</el-row>
+		</div>
+
 	</div>
 </template>
 
@@ -73,15 +96,6 @@ export default {
 				}
 			]
 		};
-	},
-	methods: {
-		vote() {
-			this.$notify({
-				title: 'Success',
-				message: 'This is a success message',
-				type: 'success'
-			});
-		}
 	}
 };
 </script>
@@ -93,6 +107,7 @@ export default {
 }
 
 .bottom {
+	padding-top: 5px;
 	margin-top: 13px;
 	line-height: 12px;
 }
@@ -116,5 +131,70 @@ export default {
 	-webkit-text-fill-color: transparent;
 	font-weight: bold;
 	font-style: italic;
+}
+
+.el-row {
+	padding: 2%;
+}
+
+.intro {
+	height: 450px;
+	background: linear-gradient(
+		to bottom,
+		#f7971e,
+		#ffd200
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.intro .quote {
+	margin-top: 16999px;
+	font-weight: regular;
+	font-size: 40px;
+	color: white;
+	position: relative;
+	float: left;
+	top: 30%;
+	left: 7%;
+	font-style: italic;
+}
+
+.intro .note {
+	font-size: 30px;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	display: block;
+	box-shadow: 3px 3px 10px rgb(0, 0, 0);
+}
+
+.signupBtn {
+	font-weight: bold;
+	border: solid 2px white;
+	background: white;
+	border-radius: 50px;
+	width: 170px;
+	height: 50px;
+	font-size: 20px;
+	color: rgb(255, 170, 11);
+}
+
+.signupBtn:hover {
+	background: rgba(250, 249, 249, 0);
+	color: white;
+}
+
+.hotNews {
+	padding-top: 3%;
+}
+
+.hotNews p.text {
+	text-align: center;
+	font-size: 40px;
+}
+
+.hotNews p.text span {
+	color: rgb(255, 170, 11);
 }
 </style>
