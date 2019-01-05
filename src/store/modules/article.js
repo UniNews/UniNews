@@ -59,7 +59,6 @@ const getters = {
 	}
 };
 
-/* eslint no-param-reassign: ["error", { "props": false }] */
 export const mutations = {
 	[SET_ARTICLE](state, articles) {
 		state.articles = articles;

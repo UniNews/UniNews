@@ -1,4 +1,9 @@
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './../mutations.type';
+import {
+	SET_AUTH,
+	PURGE_AUTH,
+	SET_ERROR,
+	SET_LOADING
+} from './../mutations.type';
 import {
 	LOGIN,
 	LOGOUT,
@@ -6,50 +11,101 @@ import {
 	CHECK_AUTH,
 	UPDATE_USER
 } from './../actions.type';
+import firebase from '@/config/firebaseConfig';
 
 // initial state
 const state = {
-	errors: null,
 	user: {},
+	error: '',
+	loading: false,
 	isAuthenticated: false
 };
 
 const getters = {
-	currentUser(state) {
-		return state.user;
-	},
 	isAuthenticated(state) {
 		return state.isAuthenticated;
+	},
+	getUser(state) {
+		return state.user;
+	},
+	getError(state) {
+		return state.error;
+	},
+	isLoading(state) {
+		return state.loading;
 	}
 };
 
 const actions = {
 	[LOGIN](context, credentials) {
-		console.log("LOGIN CALLED!")
-		context.commit(SET_AUTH, 'Mond User');
+		console.log('LOGIN CALLED!');
+		context.commit(SET_LOADING, true);
+		var provider = new firebase.auth.FacebookAuthProvider();
+		provider.addScope('public_profile');
+		firebase
+			.auth()
+			.signInWithPopup(provider)
+			.then(function(result) {
+				var token = result.credential.accessToken;
+				var user = result.user;
+				console.log(token, user);
+				console.log('displayName :: ', user.displayName);
+				console.log('photoURL ::', user.photoURL);
+				context.commit(SET_AUTH, user);
+				context.commit(SET_LOADING, false);
+				context.commit(SET_ERROR, null);
+			})
+			.catch(function(error) {
+				context.commit(SET_ERROR, error.message);
+				context.commit(SET_LOADING, false);
+			});
+
+		// context.commit(SET_AUTH, 'Mond User');
 	},
 	[LOGOUT](context) {
-		console.log("LOGOUT CALLED!")
-		context.commit(PURGE_AUTH);
+		console.log('LOGOUT CALLED!');
+		context.commit(SET_LOADING, true);
+		firebase
+			.auth()
+			.signOut()
+			.then(
+				function() {
+					context.commit(PURGE_AUTH);
+					context.commit(SET_ERROR, null);
+					context.commit(SET_LOADING, false);
+				},
+				function(error) {
+					context.commit(SET_ERROR, error.message);
+					context.commit(SET_LOADING, false);
+				}
+			);
+		console.log('NULL');
 	},
-	[REGISTER](context, credentials) {
-		console.log("REGISTER CALLED!")
-		context.commit(SET_ERROR, 'this function is not implemented yet.');
+	[CHECK_AUTH](context) {
+		console.log('CHECK_AUTH CALLED!');
+		firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				context.commit(SET_AUTH, user);
+				console.log('HAVE');
+			} else {
+				context.commit(PURGE_AUTH);
+				console.log('DONT HAVE');
+			}
+		});
 	},
-	[CHECK_AUTH](context) {},
 	[UPDATE_USER](context, payload) {
-		const { email, username, password, image, bio } = payload;
-		const user = {
-			email,
-			username,
-			bio,
-			image
-		};
-		if (password) {
-			user.password = password;
-		}
-		context.commit(SET_AUTH, user);
-	}
+		// const { email, username, password, image, bio } = payload;
+		// const user = {
+		// 	email,
+		// 	username,
+		// 	bio,
+		// 	image
+		// };
+		// if (password) {
+		// 	user.password = password;
+		// }
+		// context.commit(SET_AUTH, user);
+	},
 };
 
 const mutations = {
@@ -59,14 +115,13 @@ const mutations = {
 	[SET_AUTH](state, user) {
 		state.isAuthenticated = true;
 		state.user = user;
-		state.errors = {};
-		// JwtService.saveToken(state.user.token);
 	},
 	[PURGE_AUTH](state) {
 		state.isAuthenticated = false;
-		state.user = {};
-		state.errors = {};
-		// JwtService.destroyToken();
+		state.user = null;
+	},
+	[SET_LOADING](state, isLoading) {
+		state.loading = isLoading;
 	}
 };
 
