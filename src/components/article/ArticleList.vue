@@ -30,13 +30,13 @@ import { FETCH_ARTICLE } from '@/store/actions.type';
 export default {
 	name: 'ArticleList',
 	components: {},
-	mounted() {
-		this.fetchArticles();
-	},
 	methods: {
 		fetchArticles() {
 			this.$store.dispatch(FETCH_ARTICLE);
 		}
+	},
+	mounted: function() {
+		this.fetchArticles();
 	},
 	computed: {
 		...mapGetters(['articles'])

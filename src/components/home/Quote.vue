@@ -19,9 +19,6 @@
 <script>
 export default {
 	name: 'Quote',
-	props: {
-		errors: { type: Object, required: true }
-	}
 };
 </script>
 
@@ -57,6 +54,7 @@ hr {
 }
 
 .signupBtn {
+	cursor: pointer;
 	font-weight: bold;
 	border: solid 2px white;
 	background: white;
@@ -65,6 +63,7 @@ hr {
 	height: 50px;
 	font-size: 20px;
 	color: rgb(255, 170, 11);
+	outline: none;
 }
 
 .time {
