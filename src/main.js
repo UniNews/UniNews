@@ -6,6 +6,7 @@ import router from './router';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store';
+import { CHECK_AUTH } from '@/store/actions.type';
 
 Vue.use(ElementUI);
 
@@ -18,5 +19,8 @@ new Vue({
 	router,
 	components: { App },
 	template: '<App/>',
-	store
+	store,
+	created() {
+		this.$store.dispatch(CHECK_AUTH);
+	}
 });

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Quote> </Quote>
+		<Quote v-if="!isAuthenticated"> </Quote>
 
 		<div class="hotNews">
 			<p class="text">
@@ -16,18 +16,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Quote from '@/components/home/Quote';
 import ArticleList from '@/components/article/ArticleList';
 
 export default {
 	name: 'Home',
-	components: { Quote, ArticleList }
+	components: { Quote, ArticleList },
+	computed: {
+		...mapGetters(['isAuthenticated'])
+	}
 };
 </script>
 
 <style>
 .hotNews {
-	padding-top: 2%;
+	padding-top: 4%;
 }
 
 .hotNews p.text {
