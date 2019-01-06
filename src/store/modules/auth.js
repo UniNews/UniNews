@@ -9,7 +9,8 @@ import {
 	LOGOUT,
 	REGISTER,
 	CHECK_AUTH,
-	UPDATE_USER
+	UPDATE_USER,
+	AUTO_LOGIN
 } from './../actions.type';
 import firebase from '@/config/firebaseConfig';
 
@@ -81,18 +82,6 @@ const actions = {
 			);
 		console.log('NULL');
 	},
-	[CHECK_AUTH](context) {
-		console.log('CHECK_AUTH CALLED!');
-		firebase.auth().onAuthStateChanged(user => {
-			if (user) {
-				context.commit(SET_AUTH, user);
-				console.log('HAVE');
-			} else {
-				context.commit(PURGE_AUTH);
-				console.log('DONT HAVE');
-			}
-		});
-	},
 	[UPDATE_USER](context, payload) {
 		// const { email, username, password, image, bio } = payload;
 		// const user = {
@@ -106,6 +95,10 @@ const actions = {
 		// }
 		// context.commit(SET_AUTH, user);
 	},
+	[AUTO_LOGIN](context, payload) {
+		console.log('AUTO_LOGIN CALLED!');
+		context.commit(SET_AUTH, payload);
+	}
 };
 
 const mutations = {

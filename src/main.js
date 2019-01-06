@@ -6,21 +6,27 @@ import router from './router';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store';
-import { CHECK_AUTH } from '@/store/actions.type';
+import { AUTO_LOGIN } from '@/store/actions.type';
+import firebase from '@/config/firebaseConfig';
 
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-new Vue({
-	mode: 'history',
-	el: '#app',
-	router,
-	components: { App },
-	template: '<App/>',
-	store,
-	created() {
-		this.$store.dispatch(CHECK_AUTH);
-	}
+const unsubscribe = firebase.auth().onAuthStateChanged(firebaseUser => {
+	new Vue({
+		mode: 'history',
+		el: '#app',
+		router,
+		components: { App },
+		template: '<App/>',
+		store,
+		created() {
+			if (firebaseUser) {
+				store.dispatch(AUTO_LOGIN, firebaseUser);
+			}
+		}
+	});
+	unsubscribe();
 });
