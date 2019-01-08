@@ -17,7 +17,7 @@ import firebase from '@/config/firebaseConfig'
 
 // initial state
 const state = {
-  user: {},
+  user: null,
   error: '',
   loading: false,
   isAuthenticated: false
