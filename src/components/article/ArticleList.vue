@@ -1,6 +1,8 @@
 <template>
 	<el-row :gutter="20">
 		<el-col :span="8" v-for="data in articles">
+					<!-- {{getAvgRating(data.rating)}} -->
+
 			<el-card :body-style="{ padding: '0px' }" shadow="hover">
 				<el-carousel style="height:200%" :autoplay="false" trigger="click" height="280px">
 					<el-carousel-item v-for="img in data.imgs">
@@ -12,7 +14,7 @@
 						{{data.title}}
 					</span>
 					<p style="padding-top:10px">{{data.description}}</p>
-					<el-rate style="padding-top:10px" disabled show-score text-color="#ff9900" score-template="{value} points" v-model=data.rating></el-rate>
+					<el-rate v-model=data.rating[data.rating.length-1].rating style="padding-top:10px" disabled show-score text-color="#ff9900"  score-template="{value} points"></el-rate>
 					<div class="bottom clearfix">
 						<time class="time">{{ data.timeStamp }}</time>
 						<el-button type="text" class="button">อ่านเพิ่มเติม</el-button>
