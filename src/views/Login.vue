@@ -32,7 +32,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { LOGIN, REGISTER } from '@/store/actions.type';
+import { LOGIN, REGISTER,LOGINBYGOOGLE } from '@/store/actions.type';
 export default {
 	name: 'Login',
 	data() {

@@ -6,6 +6,7 @@ import {
 } from './../mutations.type'
 import {
   LOGIN,
+  LOGINBYGOOGLE,
   LOGOUT,
   REGISTER,
   CHECK_AUTH,
@@ -87,6 +88,30 @@ const actions = {
   [AUTO_LOGIN] (context, payload) {
     console.log('AUTO_LOGIN CALLED!')
     context.commit(SET_AUTH, payload)
+  },
+  [LOGINBYGOOGLE] (context, credentials) {
+    console.log('LOGIN CALLED!')
+    context.commit(SET_LOADING, true)
+    var provider = new firebase.auth.GoogleAuthProvider()
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        var token = result.credential.accessToken
+        var user = result.user
+        console.log(token, user)
+        console.log('displayName :: ', user.displayName)
+        console.log('photoURL ::', user.photoURL)
+        context.commit(SET_AUTH, user)
+        context.commit(SET_LOADING, false)
+        context.commit(SET_ERROR, null)
+      })
+      .catch(function (error) {
+        context.commit(SET_ERROR, error.message)
+        context.commit(SET_LOADING, false)
+      })
+
+    // context.commit(SET_AUTH, 'Mond User');
   }
 }
 
