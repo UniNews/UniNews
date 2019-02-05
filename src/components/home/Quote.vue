@@ -1,5 +1,5 @@
 <template v-show="errors">
-	<div>
+  <!-- <div>
 		<div class="intro">
 			<img style="height:100%; padding-right:6%" align=right src="@/assets/varit.png">
 			<p class="quote">
@@ -13,12 +13,42 @@
 			</p>
 		</div>
 		<hr>
-	</div>
+	</div> -->
+  <v-parallax
+    dark
+    src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
+  >
+    <v-layout
+      align-center
+      column
+      justify-center
+    >
+      <v-container fill-height>
+        <v-layout align-center>
+          <v-flex>
+            <h3 class="display-3">Welcome to the site!</h3>
+
+            <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+
+            <div class="title mb-3">Check out our newest features!</div>
+
+            <v-btn
+              class="mx-0"
+              color="warning"
+              large
+            >
+              Get started
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-layout>
+  </v-parallax>
 </template>
 
 <script>
 export default {
-	name: 'Quote',
+	name: 'Quote'
 };
 </script>
 
