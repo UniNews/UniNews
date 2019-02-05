@@ -3,8 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// import ElementUI from 'element-ui'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+// import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
 import { AUTO_LOGIN } from '@/store/actions.type'
 import firebase from '@/config/firebaseConfig'
@@ -12,7 +15,8 @@ import firebase from '@/config/firebaseConfig'
 import axios from 'axios'
 var qs = require('qs')
 
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
+Vue.use(Vuetify)
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
@@ -50,7 +54,7 @@ const unsubscribe = firebase.auth().onAuthStateChanged(firebaseUser => {
           })
           .catch(function (error) {
             // Handle error
-          })
+		  })
         store.dispatch(AUTO_LOGIN, firebaseUser)
       }
     }

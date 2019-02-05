@@ -1,18 +1,18 @@
 <template>
-	<div>
-		<Quote v-if="!isAuthenticated"> </Quote>
+  <div>
+    <Quote v-if="!isAuthenticated"> </Quote>
 
-		<div class="hotNews">
-			<p class="text">
-				<i class="el-icon-loading"></i> Hot
-				<span>News</span>
-			</p>
+    <div class="hotNews">
+      <p class="text">
+        <i class="el-icon-loading"></i> Hot
+        <span>News</span>
+      </p>
 
-			<ArticleList> </ArticleList>
+      <ArticleList> </ArticleList>
 
-		</div>
+    </div>
 
-	</div>
+  </div>
 </template>
 
 <script>
