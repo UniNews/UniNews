@@ -53,14 +53,23 @@ const actions = {
         console.log(token, user)
         console.log('displayName :: ', user.displayName)
         console.log('photoURL ::', user.photoURL)
+        console.log(token)
         context.commit(SET_AUTH, user)
         context.commit(SET_LOADING, false)
         context.commit(SET_ERROR, null)
+        firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+          console.log('paul')
+          console.log(idToken)
+        }).catch(function(error) {
+          context.commit(SET_ERROR, error.message)
+          context.commit(SET_LOADING, false)
+        });
       })
       .catch(function (error) {
         context.commit(SET_ERROR, error.message)
         context.commit(SET_LOADING, false)
       })
+
 
     // context.commit(SET_AUTH, 'Mond User');
   },
